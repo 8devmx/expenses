@@ -1,0 +1,9 @@
+.sidebar {
+  flex: 1 0 250px;
+  height: 100%;
+  padding: 20px;
+}
+
+.is_collapsed {
+  transform: translateX(-100%);
+}
