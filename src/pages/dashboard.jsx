@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react'
 import LayoutApp from '@/components/layouts/layout-app'
 import Category from '@/components/Category'
 import Categories from '@/services/Categories'
+import useSWR from 'swr'
 
+const fetcher = async url => {
+  const token = sessionStorage.getItem('token')
+  const data = await Categories(url, token)
+  return data.data.categories
+}
 
 const Dashboard = () => {
-  const [data, setData] = useState([])
-  const request = async (token) => {
-    const categories = await Categories(token)
-    if (categories.status === 200) {
-      setData(categories.data.categories)
-    }
-  }
-
-  useEffect(() => {
-    const token = sessionStorage.getItem('token')
-    request(token)
-  }, [data])
+  const { data, error, isLoading } = useSWR('http://127.0.0.1:8000/categories', fetcher, {
+    refreshInterval: 3000
+  })
+  console.log({ data, error, isLoading })
+  if (error) return <div>Error al cargar</div>
+  if (isLoading) return <div>Cargando</div>
 
   return (
     <LayoutApp>

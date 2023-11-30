@@ -1,6 +1,7 @@
 import axios from 'axios'
-const Categories = async (token) => {
-  return axios.get('http://127.0.0.1:8000/categories', {
+const Categories = async (url, token) => {
+  console.log(url)
+  return axios.get(url, {
     headers: {
       Authorization: `Bearer ${token}`
     }
