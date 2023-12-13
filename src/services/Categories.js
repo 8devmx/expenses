@@ -1,6 +1,5 @@
 import axios from 'axios'
 const Categories = async (url, token) => {
-  console.log(url)
   return axios.get(url, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -8,4 +7,12 @@ const Categories = async (url, token) => {
   })
 }
 
-export default Categories
+const InsertCategories = async (url, token, data) => {
+  return axios.post(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
+export { Categories, InsertCategories }
